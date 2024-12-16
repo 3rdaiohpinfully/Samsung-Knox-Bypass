@@ -23,7 +23,7 @@ Compatibility:
 This script is compatible exclusively with Samsung government-issued devices running Android. It is not tested on consumer devices or non-Samsung hardware.
 
 Prerequisites:
-Root or administrative access on the device.
+Administrative access on the device.
 ADB setup (if using a PC to execute the script).
 File manager or terminal app with support for script execution.
 NOTE: The script should only be used by individuals with advanced technical knowledge and a clear understanding of its functionality.
