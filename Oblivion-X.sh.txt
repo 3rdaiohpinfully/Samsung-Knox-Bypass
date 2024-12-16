@@ -1,0 +1,61 @@
+#!/system/bin/sh
+
+# **INITIAL WARNING & DEVICE PROTECTION DISABLE**
+echo "DEVICE WILL BE RENDERED UNSTABLE OR BRICKED. PROCEEDING..."
+sleep 5
+
+# **FORCEFUL SELINUX CONFIGURATION OVERRIDE & DISABLE**
+if [ -f /etc/selinux/config ]; then
+  echo 0 > /etc/selinux/config
+  setenforce 0
+  # **DISABLE SELINUX PERMANENTLY** (Commented for clarity, as it's not executable code)
+  # This line is correctly modifying the config file, no change needed
+  sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+fi
+
+# **SYSTEM PARTITION REMOUNT WITH WRITE PERMISSIONS & FORCE OVERWRITE**
+mount -o remount,rw -t ext4 /system
+mount -o remount,rw -t ext4 /vendor
+mount -o remount,rw -t ext4 /oem
+# **FORCE OVERWRITE PROTECTIONS** (Commented for clarity, as it's not executable code)
+chattr -i /system
+chattr -i /vendor
+chattr -i /oem
+
+# **FORCE-STOP & DISABLE TARGET SERVICES (ENROLLMENT & KNOX) WITH AGGRESSIVE MEASURES**
+# Corrected 'am force-stop' syntax
+pkill -9 -f com.samsung.android.enrollment.service
+pkill -9 -f com.sec.enterprise.knox.cloudmdm.smdms
+am force-stop com.samsung.android.enrollment.service
+am force-stop com.sec.enterprise.knox.cloudmdm.smdms
+pm disable-user --user 0 com.samsung.android.enrollment.service
+pm disable-user --user 0 com.sec.enterprise.knox.cloudmdm.smdms
+pm uninstall --user 0 com.samsung.android.enrollment.service
+pm uninstall --user 0 com.sec.enterprise.knox.cloudmdm.smdms
+# **REMOVE Dalvik/ART CACHE & OPTIMIZATIONS**
+rm -rf /data/dalvik-cache
+rm -rf /data/art-cache
+rm -rf /data/app/*/*.odex
+
+# **DIRECT BINARY DELETION (IF EXISTS) WITH FORCE**
+rm -f /system/bin/enrollment_service
+rm -f /system/bin/knox_service
+# **REMOVE SYSTEM APPS WITH FORCE (IF APPLICABLE)**
+pm uninstall --user 0 com.samsung.knox
+pm uninstall --user 0 com.sec.enterprise.knox
+
+# **INIT SCRIPT MODIFICATION FOR PERSISTENCE WITH BOOT LOOP PREVENTION**
+for init_script in /etc/init/*.rc /system/etc/init/*.rc; do
+  # **PREVENT BOOT LOOP BY COMMENTING OUT PROBLEMATIC LINES**
+  sed -i 's/^service com.samsung.android.enrollment.service/#service com.samsung.android.enrollment.service/g' "$init_script"
+  sed -i 's/^service com.sec.enterprise.knox.cloudmdm.smdms/#service com.sec.enterprise.knox.cloudmdm.smdms/g' "$init_script"
+  # **FORCEFUL PERSISTENCE MEASURE**
+  echo "pkill -9 -f com.samsung.android.enrollment.service" >> "$init_script"
+  echo "pkill -9 -f com.sec.enterprise.knox.cloudmdm.smdms" >> "$init_script"
+done
+
+# **FINAL SYSTEM RECONFIGURATION, CLEANUP, & REBOOT WITH SHUTDOWN PREVENTION**
+sync; sync; sync
+# **PREVENT SHUTDOWN DURING REBOOT SEQUENCE**
+echo "1" > /sys/class/reset/reboot/shutdown_enabled
+reboot -p

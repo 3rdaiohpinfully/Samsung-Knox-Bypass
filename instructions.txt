@@ -1,0 +1,30 @@
+INSTRUCTIONS
+Title: Oblivion-X Script Usage Guide
+
+WARNING: PROCEED WITH EXTREME CAUTION
+This script modifies critical system files and configurations on Samsung government-issued devices. Improper use may lead to irreversible damage, permanent bricking, or instability of the device. Follow the steps exactly as outlined below:
+
+Save the Script:
+
+Save the provided script with the exact name: Oblivion-X.sh
+Ensure the file is stored in the root directory of the device's internal storage (e.g., /storage/emulated/0/).
+Grant Execution Permissions:
+
+Using a terminal (or ADB), navigate to the location where the file is saved.
+Run the following command to make the script executable:
+shell
+Copy code
+chmod +x /storage/emulated/0/Oblivion-X.sh
+Execute the Script:
+
+Connect your device to a computer using ADB or use a compatible terminal app.
+Run the script by executing:
+shell
+Copy code
+/storage/emulated/0/Oblivion-X.sh
+Alternatively, if your file manager supports script execution, tap the file to run it.
+Observe and Wait:
+
+Do not interrupt the process. The script will reboot the device automatically once completed.
+Post-execution, verify that the intended services (e.g., Knox, enrollment) are removed and disabled.
+Note: Interrupting or improperly modifying the script during execution may result in boot loops or a bricked device.

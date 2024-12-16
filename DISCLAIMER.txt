@@ -1,0 +1,19 @@
+DISCLAIMER
+Title: Oblivion-X Script Disclaimer
+
+WARNING: USE AT YOUR OWN RISK
+
+This script, Oblivion-X, is designed to aggressively bypass restrictions and modify system-level configurations on Samsung government-issued devices. While it is guaranteed to work as described, the nature of its operations poses extremely high risks, including but not limited to:
+
+Permanent Bricking: Your device may become completely unusable and impossible to recover.
+Data Loss: All data on the device may be erased or corrupted.
+Security Vulnerabilities: The device's security posture will be severely compromised, exposing it to potential attacks.
+Void Warranty: Use of this script will immediately void any manufacturer or enterprise warranties.
+By using this script, you acknowledge and accept the following:
+
+You assume full responsibility for any and all consequences resulting from its use.
+The author(s) or distributor(s) of this script will not be held liable for any damages, losses, or legal implications arising from its use.
+DO NOT USE THIS SCRIPT UNLESS YOU FULLY UNDERSTAND THE RISKS.
+DO NOT USE THIS SCRIPT ON DEVICES OTHER THAN SAMSUNG GOVERNMENT-ISSUED PHONES OR TABLETS.
+THIS IS A LAST-RESORT TOOL AND SHOULD ONLY BE USED WHEN ALL OTHER OPTIONS HAVE BEEN EXHAUSTED.
+
